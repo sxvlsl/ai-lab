@@ -1,0 +1,50 @@
+[project]
+name = "ai-lab"
+version = "0.1.0"
+description = "Entorno de aprendizaje de IA siguiendo el roadmap"
+requires-python = ">=3.12,<3.14"
+dependencies = []
+
+[tool.uv]
+package = false
+default-groups = ["data"]
+
+# Un grupo por fase del roadmap: instala solo lo que vayas necesitando
+# con  uv sync --group ml --group dl ...
+[dependency-groups]
+# Fases 2-3: datos y análisis
+data = [
+  "numpy", "pandas", "scipy", "matplotlib", "seaborn",
+  "jupyterlab", "ipykernel", "duckdb", "pyarrow",
+]
+# Fase 3: machine learning clásico
+ml = [
+  "scikit-learn", "xgboost", "lightgbm", "statsmodels", "kaggle",
+]
+# Fase 4: deep learning (PyTorch solo CPU, ver índice más abajo)
+dl = [
+  "torch", "torchvision", "torchaudio", "torchmetrics", "tensorboard", "tqdm",
+]
+# Fase 5: NLP y LLMs
+nlp = [
+  "transformers", "datasets", "tokenizers", "sentence-transformers",
+  "accelerate", "huggingface_hub",
+]
+# Fase 5: aprendizaje por refuerzo (opcional)
+rl = ["gymnasium", "stable-baselines3"]
+# Fase 6: producción
+prod = ["fastapi", "uvicorn", "pydantic", "httpx", "mlflow"]
+# Calidad de código (todas las fases)
+dev = ["ruff", "pytest", "mypy", "pre-commit"]
+
+# Tu GPU es una Intel integrada: usamos las ruedas de PyTorch para CPU
+# (mucho más ligeras que las de CUDA). Para entrenar en GPU usa Colab o Kaggle.
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[tool.uv.sources]
+torch = { index = "pytorch-cpu" }
+torchvision = { index = "pytorch-cpu" }
+torchaudio = { index = "pytorch-cpu" }
