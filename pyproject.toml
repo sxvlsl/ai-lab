@@ -37,8 +37,6 @@ prod = ["fastapi", "uvicorn", "pydantic", "httpx", "mlflow"]
 # Calidad de código (todas las fases)
 dev = ["ruff", "pytest", "mypy", "pre-commit"]
 
-# Tu GPU es una Intel integrada: usamos las ruedas de PyTorch para CPU
-# (mucho más ligeras que las de CUDA). Para entrenar en GPU usa Colab o Kaggle.
 [[tool.uv.index]]
 name = "pytorch-cpu"
 url = "https://download.pytorch.org/whl/cpu"
